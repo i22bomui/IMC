@@ -129,13 +129,20 @@ Datos* PerceptronMulticapa::leerDatos(const string archivo) {
 	Datos *p = new Datos;
 	ifstream file;
 
-	file.open("basesDatosPr1IMC/dat/test_xor.dat")
+	file.open("../basesDatosPr1IMC/dat/test_xor.dat")
+	if (! file.is_open())
+		error(1);
 
 
+	file >> p->nNumEntradas >> p->nNumSalidas >> p->nNumPatrones;
+
+	string line;
+	while(getline(file, line)){
 
 
+	}
 
-
+	file.close();
 
 	return p;
 }
