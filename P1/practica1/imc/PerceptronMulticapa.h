@@ -17,10 +17,10 @@ namespace imc{
 struct Neurona {
 	double  x;            /* Salida producida por la neurona (out_j^h)*/
 	double  dX;           /* Derivada de la salida producida por la neurona (delta_j)*/
-	vector <double> w;            /* Vector de pesos de entrada (w_{ji}^h)*/
-	vector <double> deltaW;       /* Cambio a aplicar a cada peso de entrada (\Delta_{ji}^h (t))*/
-	vector <double> ultimoDeltaW; /* Último cambio aplicada a cada peso (\Delta_{ji}^h (t-1))*/
-	vector <double> wCopia;       /* Copia de los pesos de entrada */
+	std::vector <double> w;            /* Vector de pesos de entrada (w_{ji}^h)*/
+	std::vector <double> deltaW;       /* Cambio a aplicar a cada peso de entrada (\Delta_{ji}^h (t))*/
+	std::vector <double> ultimoDeltaW; /* Último cambio aplicada a cada peso (\Delta_{ji}^h (t-1))*/
+	std::vector <double> wCopia;       /* Copia de los pesos de entrada */
 };
 
 struct Capa {
@@ -32,8 +32,8 @@ struct Datos {
 	int nNumEntradas;     /* Número de entradas */
 	int nNumSalidas;      /* Número de salidas */
 	int nNumPatrones;     /* Número de patrones */
-	vector < vector <double> > entradas;    /* Matriz con las entradas del problema */
-	vector < vector <double> > salidas;     /* Matriz con las salidas del problema */
+	std::vector < std::vector <double> > entradas;    /* Matriz con las entradas del problema */
+	std::vector < std::vector <double> > salidas;     /* Matriz con las salidas del problema */
 };
 
 class PerceptronMulticapa {
@@ -48,10 +48,10 @@ private:
 	void pesosAleatorios();
 
 	// Alimentar las neuronas de entrada de la red con un patrón pasado como argumento
-	void alimentarEntradas(vector <double> entrada);
+	void alimentarEntradas(std::vector <double> entrada);
 
 	// Recoger los valores predichos por la red (out de la capa de salida) y almacenarlos en el vector pasado como argumento
-	void recogerSalidas(vector <double> salida);
+	void recogerSalidas(std::vector <double> salida);
 
 	// Hacer una copia de todos los pesos (copiar w en copiaW)
 	void copiarPesos();
@@ -63,10 +63,10 @@ private:
 	void propagarEntradas();
 
 	// Calcular el error de salida (MSE) del out de la capa de salida con respecto a un vector objetivo y devolverlo
-	double calcularErrorSalida(vector <double> objetivo);
+	double calcularErrorSalida(std::vector <double> objetivo);
 
 	// Retropropagar el error de salida con respecto a un vector pasado como argumento, desde la última capa hasta la primera
-	void retropropagarError(vector <double> objetivo);
+	void retropropagarError(std::vector <double> objetivo);
 
 	// Acumular los cambios producidos por un patrón en deltaW
 	void acumularCambio();
@@ -79,7 +79,7 @@ private:
 
 	// Simular la red: propagar las entradas hacia delante, retropropagar el error y ajustar los pesos
 	// entrada es el vector de entradas del patrón y objetivo es el vector de salidas deseadas del patrón
-	void simularRedOnline(vector <double> entrada, vector <double> objetivo);
+	void simularRedOnline(std::vector <double> entrada, std::vector <double> objetivo);
 
 
 public:
@@ -103,7 +103,7 @@ public:
 	int inicializar(int nl, int npl[]);
 
 	// Leer una matriz de datos a partir de un nombre de fichero y devolverla
-	Datos* leerDatos(const string archivo);
+	Datos* leerDatos(const std::string archivo);
 
 	// Probar la red con un conjunto de datos y devolver el error MSE cometido
 	double test(Datos* pDatosTest);

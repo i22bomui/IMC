@@ -10,6 +10,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <iterator>
 #include <string>
 #include <cstdlib>  // Para establecer la semilla srand() y generar números aleatorios rand()
 #include <limits>
@@ -55,13 +56,13 @@ void PerceptronMulticapa::pesosAleatorios() {
 
 // ------------------------------
 // Alimentar las neuronas de entrada de la red con un patrón pasado como argumento
-void PerceptronMulticapa::alimentarEntradas(vector <double> input) {
+void PerceptronMulticapa::alimentarEntradas(vector <double> entrada) {
 
 }
 
 // ------------------------------
 // Recoger los valores predichos por la red (out de la capa de salida) y almacenarlos en el vector pasado como argumento
-void PerceptronMulticapa::recogerSalidas(vector <double> output)
+void PerceptronMulticapa::recogerSalidas(vector <double> salida)
 {
 
 }
@@ -129,18 +130,70 @@ Datos* PerceptronMulticapa::leerDatos(const string archivo) {
 	Datos *p = new Datos;
 	ifstream file;
 
-	file.open("../basesDatosPr1IMC/dat/test_xor.dat")
+	string filename = "../basesDatosPr1IMC/dat/test_forest.dat";
+	file.open(filename);
 	if (! file.is_open())
-		error(1);
+		return 0;	// Meter aqui una funcion de error
 
 
 	file >> p->nNumEntradas >> p->nNumSalidas >> p->nNumPatrones;
+	cout << "nEntradas: " << p->nNumEntradas << " nSalidas: " << p->nNumSalidas << " nPatrones: " << p->nNumPatrones << endl; 
 
 	string line;
+	string token;
+
+	vector < vector <double> > auxEntradas(p->nNumPatrones, vector<double>(p->nNumEntradas, 0));
+	vector < vector <double> > auxSalidas(p->nNumPatrones, vector<double>(p->nNumSalidas, 0));
+
+	int i = 0;
 	while(getline(file, line)){
 
+		stringstream ss(line);
 
+		for(int j = 0; j < p->nNumEntradas; j++){
+
+			ss >> token;
+			auxEntradas[i][j] = atof(token.c_str());
+		}
+
+		for(int j = 0; j < p->nNumSalidas; j++){
+
+			ss >> token;
+			auxSalidas[i][j] = atof(token.c_str());
+		}
+
+		i++;
 	}
+
+/*
+	for(int i = 0; i < p->nNumPatrones; i++){
+
+		cout << endl << "Entradas[" << i << "]: " << endl;
+		for(int j = 0; j < p->nNumEntradas; j++){
+
+			file >> token;
+			cout << token  << " "; 
+			auxEntradas[i][j] = stod(token);
+		}
+
+		cout << "Salidas[" << i << "]: " << endl;
+		for(int j = 0; j < p->nNumSalidas; j++){
+
+			file >> token;
+			cout << token  << " ";
+			auxSalidas[i][j] = stod(token);
+		}
+	}
+*/
+	for(int i = 0; i < p->nNumPatrones; i++){
+
+		for(int j = 0; j < p->nNumEntradas; j++){
+
+			cout << p->entradas[i][j] << " ";
+		}
+		cout << endl;
+	}
+	cin >> token;
 
 	file.close();
 
@@ -177,7 +230,7 @@ void PerceptronMulticapa::ejecutarAlgoritmoOnline(Datos * pDatosTrain, Datos * p
 	int numSinMejorar;
 	double testError = 0;
 
-	double validationError;
+	double validationError = 0;
 
 	// Generar datos de validación
 	if(dValidacion > 0 && dValidacion < 1){
@@ -219,7 +272,7 @@ void PerceptronMulticapa::ejecutarAlgoritmoOnline(Datos * pDatosTrain, Datos * p
 	cout << "Salida Esperada Vs Salida Obtenida (test)" << endl;
 	cout << "=========================================" << endl;
 	for(int i=0; i<pDatosTest->nNumPatrones; i++){
-		double* prediccion = new double[pDatosTest->nNumSalidas];
+		vector <double> prediccion(pDatosTest->nNumSalidas);
 
 		// Cargamos las entradas y propagamos el valor
 		alimentarEntradas(pDatosTest->entradas[i]);
@@ -228,7 +281,7 @@ void PerceptronMulticapa::ejecutarAlgoritmoOnline(Datos * pDatosTrain, Datos * p
 		for(int j=0; j<pDatosTest->nNumSalidas; j++)
 			cout << pDatosTest->salidas[i][j] << " -- " << prediccion[j] << " ";
 		cout << endl;
-		delete[] prediccion;
+		prediccion.clear();
 
 	}
 

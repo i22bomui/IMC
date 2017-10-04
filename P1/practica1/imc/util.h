@@ -10,6 +10,7 @@
 #include <cstdlib>  // Para establecer la semilla srand() y generar números aleatorios rand()
 
 namespace util{
+/*
 static int * vectorAleatoriosEnterosSinRepeticion(int minimo, int maximo, int cuantos){
         int total = maximo-minimo+1;
         int* numerosPorElegir = new int[total];
@@ -32,6 +33,8 @@ static int * vectorAleatoriosEnterosSinRepeticion(int minimo, int maximo, int cu
 
 };
 
+
+*/
 }
 
 

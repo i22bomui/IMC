@@ -22,6 +22,7 @@ using namespace imc;
 using namespace std;
 
 int main(int argc, char **argv) {
+
 	// Procesar los argumentos de la línea de comandos
 
 	// Objeto perceptrón multicapa
@@ -30,6 +31,8 @@ int main(int argc, char **argv) {
 	// Parámetros del mlp. Por ejemplo, mlp.dEta = valorQueSea;
 
 	// Lectura de datos de entrenamiento y test: llamar a mlp.leerDatos(...)
+	string fichero;
+	mlp.leerDatos(fichero);
 
 	// Inicializar vector topología
 	//int *topologia = new int[capas+2];
@@ -43,6 +46,8 @@ int main(int argc, char **argv) {
 
 
     // Semilla de los números aleatorios
+
+	/*
     int semillas[] = {10,20,30,40,50};
     double *erroresTest = new double[5];
     double *erroresTrain = new double[5];
@@ -66,6 +71,8 @@ int main(int argc, char **argv) {
     cout << "*************" << endl;
     cout << "Error de entrenamiento (Media +- DT): " << mediaErrorTrain << " +- " << desviacionTipicaErrorTrain << endl;
     cout << "Error de test (Media +- DT):          " << mediaErrorTest << " +- " << desviacionTipicaErrorTest << endl;
+
+*/
     return EXIT_SUCCESS;
 }
 
