@@ -145,46 +145,25 @@ Datos* PerceptronMulticapa::leerDatos(const string archivo) {
 	vector < vector <double> > auxEntradas(p->nNumPatrones, vector<double>(p->nNumEntradas, 0));
 	vector < vector <double> > auxSalidas(p->nNumPatrones, vector<double>(p->nNumSalidas, 0));
 
-	int i = 0;
-	while(getline(file, line)){
-
-		stringstream ss(line);
-
-		for(int j = 0; j < p->nNumEntradas; j++){
-
-			ss >> token;
-			auxEntradas[i][j] = atof(token.c_str());
-		}
-
-		for(int j = 0; j < p->nNumSalidas; j++){
-
-			ss >> token;
-			auxSalidas[i][j] = atof(token.c_str());
-		}
-
-		i++;
-	}
-
-/*
 	for(int i = 0; i < p->nNumPatrones; i++){
 
-		cout << endl << "Entradas[" << i << "]: " << endl;
+//		cout << endl << "Entradas[" << i << "]: " << endl;
 		for(int j = 0; j < p->nNumEntradas; j++){
 
 			file >> token;
-			cout << token  << " "; 
+//			cout << token  << " "; 
 			auxEntradas[i][j] = stod(token);
 		}
 
-		cout << "Salidas[" << i << "]: " << endl;
+//		cout << "Salidas[" << i << "]: " << endl;
 		for(int j = 0; j < p->nNumSalidas; j++){
 
 			file >> token;
-			cout << token  << " ";
+//			cout << token  << " ";
 			auxSalidas[i][j] = stod(token);
 		}
 	}
-*/
+/*
 	for(int i = 0; i < p->nNumPatrones; i++){
 
 		for(int j = 0; j < p->nNumEntradas; j++){
@@ -193,6 +172,7 @@ Datos* PerceptronMulticapa::leerDatos(const string archivo) {
 		}
 		cout << endl;
 	}
+*/
 	cin >> token;
 
 	file.close();
